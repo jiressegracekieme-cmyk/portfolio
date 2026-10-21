@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Linkedin, Github, Send, User, MessageSquare } from 'lucide-react';
 import { Reveal, SectionHeading } from '@/components/animation-helpers';
@@ -13,14 +13,41 @@ import { personalInfo } from '@/lib/data';
 export function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [formStartedAt, setFormStartedAt] = useState('');
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  useEffect(() => {
+    setFormStartedAt(Date.now().toString());
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = e.currentTarget;
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 1200));
-    setLoading(false);
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 5000);
+    setError('');
+
+    try {
+      const formData = new FormData(form);
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(Object.fromEntries(formData.entries())),
+      });
+      const result = await response.json().catch(() => null);
+
+      if (!response.ok || result?.success !== true) {
+        throw new Error(result?.error || "L'envoi du message a échoué. Veuillez réessayer.");
+      }
+
+      form.reset();
+      setFormStartedAt(Date.now().toString());
+      setSubmitted(true);
+      setTimeout(() => setSubmitted(false), 5000);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Une erreur inattendue est survenue. Veuillez réessayer.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const contactItems = [
@@ -95,34 +122,49 @@ export function Contact() {
 
           <Reveal delay={0.2}>
             <form onSubmit={handleSubmit} className="glass rounded-3xl p-8 space-y-5">
+              <input type="hidden" name="formStartedAt" value={formStartedAt} />
+              <div className="hidden" aria-hidden="true">
+                <label htmlFor="website">Ne pas remplir ce champ</label>
+                <input id="website" name="website" tabIndex={-1} autoComplete="off" />
+              </div>
               <div className="grid gap-5 sm:grid-cols-2">
                 <div className="space-y-2">
                   <Label htmlFor="name">Nom complet</Label>
-                  <Input id="name" placeholder="Votre nom" required className="rounded-xl" />
+                  <Input id="name" name="name" autoComplete="name" placeholder="Votre nom" required maxLength={100} className="rounded-xl" />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="email">Email</Label>
-                  <Input id="email" type="email" placeholder="vous@exemple.com" required className="rounded-xl" />
+                  <Input id="email" name="email" type="email" autoComplete="email" placeholder="vous@exemple.com" required maxLength={254} className="rounded-xl" />
                 </div>
               </div>
               <div className="grid gap-5 sm:grid-cols-2">
                 <div className="space-y-2">
                   <Label htmlFor="phone">Téléphone</Label>
-                  <Input id="phone" placeholder="+241 ..." className="rounded-xl" />
+                  <Input id="phone" name="phone" autoComplete="tel" placeholder="+241 ..." maxLength={40} className="rounded-xl" />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="subject">Sujet</Label>
-                  <Input id="subject" placeholder="Objet du message" required className="rounded-xl" />
+                  <Input id="subject" name="subject" placeholder="Objet du message" required maxLength={150} className="rounded-xl" />
                 </div>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="message">Message</Label>
-                <Textarea id="message" placeholder="Décrivez votre projet ou votre demande..." rows={5} required className="rounded-xl resize-none" />
+                <Textarea id="message" name="message" placeholder="Décrivez votre projet ou votre demande..." rows={5} required maxLength={5000} className="rounded-xl resize-none" />
               </div>
+              {error && (
+                <p role="alert" className="text-sm text-destructive">
+                  {error}
+                </p>
+              )}
+              {submitted && (
+                <p role="status" className="text-sm text-green-600">
+                  Votre message a bien été envoyé. Merci de m&apos;avoir contacté !
+                </p>
+              )}
               <Button
                 type="submit"
                 size="lg"
-                disabled={loading || submitted}
+                disabled={loading || submitted || !formStartedAt}
                 className="w-full gradient-blue text-white hover:opacity-90"
               >
                 {loading ? (

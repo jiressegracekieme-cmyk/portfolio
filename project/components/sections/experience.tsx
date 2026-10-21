@@ -13,7 +13,7 @@ export function Experience() {
         <SectionHeading
           badge="Expériences"
           title={<>Mon <span className="gradient-text">parcours</span> professionnel</>}
-          subtitle="6 mois d'expérience cumulée à travers des rôles variés en développement, data, réseaux, sécurité et audiovisuel."
+          subtitle="Des expériences variées en développement, data, réseaux, télécommunications, sécurité et audiovisuel."
         />
 
         <div className="mt-16 relative">

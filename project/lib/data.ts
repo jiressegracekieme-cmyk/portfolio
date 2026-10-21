@@ -52,6 +52,9 @@ export const skillCategories = [
     skills: [
       { name: 'HTML / CSS', level: 85 },
       { name: 'JavaScript', level: 78 },
+      { name: 'React', level: 70 },
+      { name: 'Vite', level: 70 },
+      { name: 'React Native', level: 65 },
       { name: 'Angular', level: 72 },
       { name: 'Git', level: 75 },
     ],
@@ -235,6 +238,16 @@ export const projects = [
 
 export const experiences = [
   {
+    id: 5,
+    role: 'Stagiaire',
+    company: 'CONGO TELECOM',
+    period: 'Durée : 6 mois',
+    type: 'Télécommunications',
+    description: 'Stage de 6 mois effectué au sein de CONGO TELECOM.',
+    missions: [],
+    technologies: [],
+  },
+  {
     id: 1,
     role: 'Data Analyst — Création de dashboards',
     company: 'Yeko Elite',
@@ -360,6 +373,15 @@ export const certifications = [
     year: '2024',
     icon: 'GraduationCap',
     color: 'from-green-600 to-emerald-400',
+    verify: '#',
+  },
+  {
+    id: 8,
+    name: 'Formation en React, Vite et React Native',
+    issuer: 'CONGO TELECOM',
+    year: '2024',
+    icon: 'Code2',
+    color: 'from-blue-600 to-blue-400',
     verify: '#',
   },
 ];
