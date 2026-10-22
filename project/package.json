@@ -52,7 +52,6 @@
     "cmdk": "^1.0.0",
     "date-fns": "^3.6.0",
     "embla-carousel-react": "^8.3.0",
-    "eslint": "8.49.0",
     "eslint-config-next": "^15.5.28",
     "framer-motion": "^12.42.2",
     "input-otp": "^1.2.4",
@@ -76,6 +75,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "eslint": "^8.57.1",
     "wrangler": "^4.151.3"
   }
 }
