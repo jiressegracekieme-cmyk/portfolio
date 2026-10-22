@@ -1,9 +1,28 @@
 'use client';
 
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Globe, BarChart2, Network, Camera, Tv2, Check } from 'lucide-react';
 import { Reveal, SectionHeading } from '@/components/animation-helpers';
 import { services } from '@/lib/data';
+
+const audiovisualRoles = [
+  {
+    title: 'Ingénieur du son',
+    image: '/images/ingenieur-du-son.png',
+    alt: 'Ingénieur du son à la console de mixage pendant un événement',
+  },
+  {
+    title: 'Réalisateur audiovisuel',
+    image: '/images/realisateur-audiovisuel.png',
+    alt: 'Réalisateur audiovisuel en régie avec un casque audio',
+  },
+  {
+    title: 'Cadreur',
+    image: '/images/cadreur.png',
+    alt: 'Cadreur équipé de caméras professionnelles',
+  },
+];
 
 const iconMap: Record<string, React.ElementType> = {
   Globe, BarChart2, Network, Camera, Tv2,
@@ -66,6 +85,39 @@ export function Services() {
               </div>
             </div>
           </Reveal>
+        </div>
+
+        <div className="mt-20">
+          <div className="mb-8 text-center">
+            <h3 className="text-2xl font-bold sm:text-3xl">
+              Mon expertise <span className="gradient-text">audiovisuelle</span>
+            </h3>
+            <p className="mt-3 text-muted-foreground">
+              De la prise de son à la captation vidéo, je participe à chaque étape de vos événements.
+            </p>
+          </div>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {audiovisualRoles.map((role, i) => (
+              <Reveal key={role.title} delay={i * 0.1}>
+                <motion.div
+                  whileHover={{ y: -6 }}
+                  className="group relative aspect-[4/5] overflow-hidden rounded-3xl"
+                >
+                  <Image
+                    src={role.image}
+                    alt={role.alt}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+                  <h4 className="absolute bottom-6 left-6 text-xl font-bold text-white">
+                    {role.title}
+                  </h4>
+                </motion.div>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </div>
     </section>
