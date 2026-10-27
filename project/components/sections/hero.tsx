@@ -98,13 +98,6 @@ export function Hero() {
                 />
               </div>
               <motion.div
-                animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 4, repeat: Infinity }}
-                className="absolute -top-4 -right-4 glass rounded-2xl px-4 py-2 shadow-lg"
-              >
-                <span className="text-sm font-semibold gradient-text">6 mois d'expérience</span>
-              </motion.div>
-              <motion.div
                 animate={{ y: [0, 10, 0] }}
                 transition={{ duration: 5, repeat: Infinity }}
                 className="absolute -bottom-4 -left-4 glass rounded-2xl px-4 py-2 shadow-lg"
