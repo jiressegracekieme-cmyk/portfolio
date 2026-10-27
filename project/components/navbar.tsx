@@ -16,7 +16,6 @@ const navLinks = [
   { label: 'Expériences', href: '#experience' },
   { label: 'Certifications', href: '#certifications' },
   { label: 'Blog', href: '#blog' },
-  { label: 'Contact', href: '#contact' },
 ];
 
 export function Navbar() {
