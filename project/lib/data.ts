@@ -14,9 +14,9 @@ export const personalInfo = {
 };
 
 export const stats = [
-  { label: 'Projets réalisés', value: 2, suffix: '' },
+  { label: 'Projets réalisés', value: 7, suffix: '' },
   { label: 'Technologies maîtrisées', value: 15, suffix: '+' },
-  { label: "Mois d'expérience", value: 6, suffix: '' },
+  { label: "Mois d'expérience", value: null, suffix: '' },
   { label: 'Formations & certifications', value: 7, suffix: '+' },
 ];
 

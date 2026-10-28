@@ -119,10 +119,12 @@ export function Hero() {
               key={i}
               className="glass rounded-2xl p-4 sm:p-6 text-center hover:scale-105 transition-transform"
             >
-              <div className="text-2xl sm:text-3xl md:text-4xl font-extrabold gradient-text">
-                <AnimatedCounter to={stat.value} suffix={stat.suffix} />
-              </div>
-              <div className="mt-1 text-xs sm:text-sm text-muted-foreground font-medium">
+              {stat.value !== null && (
+                <div className="text-2xl sm:text-3xl md:text-4xl font-extrabold gradient-text">
+                  <AnimatedCounter to={stat.value} suffix={stat.suffix} />
+                </div>
+              )}
+              <div className={`${stat.value !== null ? 'mt-1 ' : ''}text-xs sm:text-sm text-muted-foreground font-medium`}>
                 {stat.label}
               </div>
             </div>
